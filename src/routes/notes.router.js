@@ -10,12 +10,12 @@ const{
     deleteNote
 }= require('../controllers/notes.controller')
 
-//craete notes
+//create notes
 router.get('/notas/newnote',renderOneNote)
 router.post('/notas/newNoteForm',createNewNote);
 //Get all note
 router.get('/notas',renderNotes);
-
+//edit note
 router.get('/notas/edit/:id',renderEditForm);
 router.put('/notas/edit/:id',updateNote)
 //delete note

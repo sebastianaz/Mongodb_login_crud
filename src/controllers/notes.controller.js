@@ -8,7 +8,8 @@ notesCtrl.createNewNote = async(req,res)=>{
     const {title,description} =req.body;
     const newNote =new notaModel({title,description});
     await newNote.save();
-    res.redirect('/')
+    req.flash('successMsg','Nota creada satisfactoriamente')
+    res.redirect('/notas')
 };
 //render all notes
 notesCtrl.renderNotes = async(req,res)=>{
@@ -16,18 +17,28 @@ notesCtrl.renderNotes = async(req,res)=>{
     res.render('notes/allnotes',{lasNotas});
 }
 // formulario de edicion
-notesCtrl.renderEditForm = (req,res)=>{
-    res.send('se manda a form con info');
+notesCtrl.renderEditForm = async(req,res)=>{
+    const editionsNote = await notaModel.findById(req.params.id).lean()
+    console.log(editionsNote)
+    res.render('notes/editionsForm',{ editionsNote });
 }
-notesCtrl.updateNote = ( req,res)=> {
-    res.send('se recibe modificacion de nota');
+notesCtrl.updateNote =async ( req,res)=> {
+    const {title,description} = req.body
+    await notaModel.findByIdAndUpdate(req.params.id, {title,description},
+        (err,docs)=>{
+            if(err){console.log(err)}
+            else{console.log('actualizado')}
+        });
+    req.flash('successMsg','Nota actualizada satisfactoriamente')
+    res.redirect('/notas');
 }
 //elemina nota
 notesCtrl.deleteNote = async(req,res)=> {
     await notaModel.findByIdAndDelete(req.params.id,(err,docs)=>{
             if(err){ console.log(err)}
-            else{console.log(docs)}
+            else{console.log('eliminado')}
         }); 
+        req.flash('successMsg','Nota eliminada satisfactoriamente')
         res.redirect('/notas')}
 
 
