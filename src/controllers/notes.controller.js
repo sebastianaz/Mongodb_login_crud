@@ -1,14 +1,19 @@
 const notesCtrl = {};
+const notaModel = require('../models/note');
 //form to create notes
-notesCtrl.renderNote = (req,res)=>{
-    res.send('<h1>Hola mundo a los controles</h1>');
+notesCtrl.renderOneNote = (req,res)=>{
+    res.render('notes/new-note')
 }
-notesCtrl.createNewNote = (req,res)=>{
-    res.send('form-DB-info recibida');
-}
+notesCtrl.createNewNote = async(req,res)=>{
+    const {title,description} =req.body;
+    const newNote =new notaModel({title,description});
+    await newNote.save();
+    res.redirect('/')
+};
 //render all notes
-notesCtrl.renderNotes = (req,res)=>{
-    res.send('carga todas las notas');
+notesCtrl.renderNotes = async(req,res)=>{
+    const lasNotas = await notaModel.find().lean();
+    res.render('notes/allnotes',{lasNotas});
 }
 // formulario de edicion
 notesCtrl.renderEditForm = (req,res)=>{
@@ -18,8 +23,12 @@ notesCtrl.updateNote = ( req,res)=> {
     res.send('se recibe modificacion de nota');
 }
 //elemina nota
-notesCtrl.deleteNote = (req,res)=> {
-    res.send('proceso de eliminacion completed')
-}
+notesCtrl.deleteNote = async(req,res)=> {
+    await notaModel.findByIdAndDelete(req.params.id,(err,docs)=>{
+            if(err){ console.log(err)}
+            else{console.log(docs)}
+        }); 
+        res.redirect('/notas')}
+
 
 module.exports = notesCtrl

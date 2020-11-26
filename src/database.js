@@ -7,6 +7,7 @@ const MONGO_URI = `mongodb://${DB_NOTES_HOST}/${DB_NOTES_NAME}`;
 
 mongoose.connect(MONGO_URI,{
     useNewUrlParser:true,
+    useCreateIndex:true,
     useUnifiedTopology:true
 
 })

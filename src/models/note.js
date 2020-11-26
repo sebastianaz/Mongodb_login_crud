@@ -3,7 +3,7 @@ const {Schema,model} = require('mongoose');
 
 //Schema({esquema},{config})
 const NOTESSCHEMA = new Schema({
-    tittle:{
+    title:{
         type:String,
         require:true
 
@@ -18,4 +18,4 @@ const NOTESSCHEMA = new Schema({
     }
 )
 
-module.exports =  model('notas',NOTESSCHEMA);
+module.exports =  model('nota',NOTESSCHEMA);

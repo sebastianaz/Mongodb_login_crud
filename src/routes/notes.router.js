@@ -2,7 +2,7 @@ const {Router} = require('express');
 const router = Router();
 
 const{
-    renderNote,
+    renderOneNote,
     createNewNote,
     renderNotes,
     renderEditForm,
@@ -11,14 +11,14 @@ const{
 }= require('../controllers/notes.controller')
 
 //craete notes
-router.get('/notas/aux',renderNote)
-router.post('/notas/aux',createNewNote);
+router.get('/notas/newnote',renderOneNote)
+router.post('/notas/newNoteForm',createNewNote);
 //Get all note
 router.get('/notas',renderNotes);
 
-router.get('/notas/:id',renderEditForm);
-router.put('/notas/:id',updateNote)
+router.get('/notas/edit/:id',renderEditForm);
+router.put('/notas/edit/:id',updateNote)
 //delete note
-router.delete('/:id',deleteNote)
+router.delete('/notas/delete/:id',deleteNote)
 
 module.exports= router;
