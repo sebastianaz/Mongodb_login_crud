@@ -5,12 +5,12 @@
             Registro de Cuenta
          </div>
          <div class="card-body">
-            <form action="/user/signup" method="POST">
-               <div class="form-group"><input class="form-control" type="text" name="name" placeholder="Nombre" ></div>
-               <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Correo Electrónico"></div>
-               <div class="form-group"><input class="form-control" type="password" name="password" placeholder="contraseña"></div>
-               <div class="form-group"><input class="form-control" type="password" name="confirm-password" placeholder="confirma contraseña"></div>
-               <button class="btn btn-success btn-block btn-sm" type="submit">enviar</button>
+            <form action="/user/signup" id="registro" method="POST">
+               <div class="form-group"><input class="form-control" type="text" name="name" placeholder="Nombre" value="{{name}}"></div>
+               <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Correo Electrónico" value="{{email}}"></div>
+               <div class="form-group"><input class="form-control" type="password" name="password" placeholder="contraseña" id="passOne"></div>
+               <div class="form-group"><input class="form-control" type="password" name="confirmPassword" placeholder="confirma tu contraseña" id="passTwo"></div>
+               <button class="btn btn-success btn-block btn-sm" type="submit" id="signup" >enviar</button>
             </form>
          </div>
       </div>

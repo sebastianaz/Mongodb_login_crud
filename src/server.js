@@ -30,7 +30,8 @@ app.use(session({
 app.use(flash());
 //global variables
 app.use((req,res,next)=>{
-     res.locals.successMesage = req.flash('successMsg');
+     res.locals.successMessage = req.flash('successMsg');
+     res.locals.errorsMessage = req.flash('errorsMsg');
     next();
 })
 

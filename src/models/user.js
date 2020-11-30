@@ -1,16 +1,17 @@
 const {Schema, model} = require('mongoose');
-const bcrypt = requiere('bcryptjs')
+const bcrypt = require('bcryptjs');
 
 
 const SCHEMAUSERS = new Schema({
     name:{type:String,require:true},
-    email:{type:String,require:true},
-    password:{tupe:String,require:true}
+    email:{type:String,require:true, unique:true},
+    password:{type:String,require:true},
 },{timestamps:true});
 
-SCHEMAUSERS.methods.encrypPassword = async(pass)=>{
+SCHEMAUSERS.methods.encryptPassword = async(pass)=>{
     const saltCry = await bcrypt.genSalt(10);
-    return await bcrypt.hash(pass,saltCry);
+    const readyPass = await bcrypt.hash(pass,saltCry);
+    return readyPass;
 }
 
 //requerir comparar contraseñas cifradas
@@ -19,3 +20,4 @@ SCHEMAUSERS.methods.matchPassword = async function(encypass){
 }
 
 module.exports = model('usuarios', SCHEMAUSERS)
+// este es el nombre con que trabaja la DataBase  ('xxx',SCHEMAUSERS)
