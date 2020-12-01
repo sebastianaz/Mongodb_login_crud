@@ -52,7 +52,9 @@ userCtrl.signup = async (req,res) =>{
 }
 
 userCtrl.logout = (req,res) => {
-    res.redirect('/')
+    req.logout();
+    req.flash('successMsg',' tu session esta cerrada')
+    res.redirect('/user/signin')
 }
 
 module.exports = userCtrl;

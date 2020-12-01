@@ -1,25 +1,34 @@
 <ul class="nav nav-pills">
     <li class="nav-item">
-        <a class="nav-link active" href="/">Home</a>
+        <a class="nav-link " href="/">principal</a>
     </li>
 <!-- ************** -->
     <li class="nav-item">
-        <a class="nav-link active" href="/notas">Notes</a>
+        <a class="nav-link " href="/notas">Notas</a>
     </li>
  <!-- ************  -->
     <li class="nav-item">
-        <a class="nav-link active" href="/about">About</a>
+        <a class="nav-link " href="/about">Conoce</a>
     </li>
+ <!-- ************  -->
+ {{#if user}}
+    <li class="nav-item">
+        <a class="nav-link " href="/notas/newnote"">New Nota</a>
+    </li>
+{{/if}}
  <!-- ************  -->
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-            aria-expanded="false">authentic</a>
+            aria-expanded="false">Autenticate</a>
         <div class="dropdown-menu">
+            {{#unless user}}
             <a class="dropdown-item" href="/user/signin">login</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="/user/signup">register</a>
-            <div class="dropdown-divider"></div>
+            {{/unless}}
+            {{#if user}}
             <a class="dropdown-item" href="/user/logout">logout</a>
+            {{/if}}
         </div>
     </li>
  <!-- ************  -->
