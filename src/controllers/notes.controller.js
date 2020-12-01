@@ -41,5 +41,4 @@ notesCtrl.deleteNote = async(req,res)=> {
         req.flash('successMsg','Nota eliminada satisfactoriamente')
         res.redirect('/notas')}
 
-
 module.exports = notesCtrl

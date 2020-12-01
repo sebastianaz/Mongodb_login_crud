@@ -1,21 +1,24 @@
-const express = require('express');
-const path    = require('path');
-const exphbs = require('express-handlebars');
-const morgan = require('morgan');
+const express    = require('express');
+const path       = require('path');
+const exphbs     = require('express-handlebars');
+const morgan     = require('morgan');
 const methodOverrride = require('method-override');
-const session =require('express-session');
-const flash =  require('connect-flash');
-const router = require('./routes/user.routers');
+const session    =require('express-session');
+const flash      =  require('connect-flash');
+const router     = require('./routes/user.routers');
+const passport   = require('passport')
+
 //initialize
 const app = express();
+require('./config/passportlocal')
 //settings
 app.set('port',process.env.PORT || 3000);
 app.set('views',path.join(__dirname,'views'))
 app.engine('.hbs',exphbs({
     defaultLayout:'main',
-    layoutsDir: path.join(app.get('views'),'layouts'),
-    partialsDir: path.join(app.get('views'),'partials'),
-    extname: '.hbs'
+    layoutsDir   : path.join(app.get('views'),'layouts'),
+    partialsDir  : path.join(app.get('views'),'partials'),
+    extname      : '.hbs'
 }))
 app.set('view engine','.hbs');
 //middlewares
@@ -27,11 +30,15 @@ app.use(session({
     resave : true,
     saveUninitialized : true
 }))
+app.use(passport.initialize());
+app.use(passport.session())
 app.use(flash());
 //global variables
 app.use((req,res,next)=>{
      res.locals.successMessage = req.flash('successMsg');
-     res.locals.errorsMessage = req.flash('errorsMsg');
+     res.locals.errorsMessage  = req.flash('errorsMsg');
+     res.locals.errorPassword  = req.flash('error');
+     res.locals.user           = req.user || null
     next();
 })
 

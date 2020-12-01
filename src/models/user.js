@@ -3,19 +3,20 @@ const bcrypt = require('bcryptjs');
 
 
 const SCHEMAUSERS = new Schema({
-    name:{type:String,require:true},
-    email:{type:String,require:true, unique:true},
+    name    :{type:String,require:true},
+    email   :{type:String,require:true, unique:true},
     password:{type:String,require:true},
-},{timestamps:true});
+    date    :{type:Date ,default : Date.now}
+});
 
 SCHEMAUSERS.methods.encryptPassword = async(pass)=>{
-    const saltCry = await bcrypt.genSalt(10);
+    const saltCry   = await bcrypt.genSalt(10);
     const readyPass = await bcrypt.hash(pass,saltCry);
     return readyPass;
 }
 
 //requerir comparar contraseñas cifradas
-SCHEMAUSERS.methods.matchPassword = async function(encypass){
+SCHEMAUSERS.methods.matchPassword = async function(encrypass){
     return await bcrypt.compare(encrypass,this.password)
 }
 
